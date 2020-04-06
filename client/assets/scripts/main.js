@@ -24,6 +24,8 @@ $(document).ready(() => {
 
                     $('#before-login').hide()
                     $('#after-login').show()
+                    $('#login-email').val('')
+                    $('#login-password').val('')
                 })
                 .fail(err => {
                     console.log(err)
@@ -31,6 +33,7 @@ $(document).ready(() => {
                 // console.log(email, pass)
         })
     } else {
+        $('#food-list').html('')
         $('#before-login').hide()
         $('#after-login').show()
 
@@ -57,7 +60,8 @@ $(document).ready(() => {
                     }
                 })
                 .done(result => {
-                    food()
+                    $('#food-list').html('')
+                    foods()
                 })
                 .fail(err => {
                     console.log(err)
@@ -95,10 +99,12 @@ $(document).ready(() => {
                         </div>
                       </div>`
                     }
+                    $('#food-list').append(data)
                 })
                 .fail(err => {
                     console.log(err)
                 })
         }
+        foods()
     }
 })

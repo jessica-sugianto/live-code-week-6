@@ -20,10 +20,11 @@ class FoodController {
     }
 
     static add(req, res) {
+        console.log(req.body)
         Food.create({
                 title: req.body.title,
-                price: req.body.price,
-                ingerdients: req.body.ingerdients,
+                price: Number(req.body.price),
+                ingerdients: req.body.ingredients,
                 tag: req.body.tag,
                 UserId: req.id
             })
