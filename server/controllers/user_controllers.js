@@ -1,6 +1,7 @@
 const User = require('../models').User
 const Pass = require('../helpers/password')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 class UserController {
     static register(req, res) {
@@ -43,7 +44,7 @@ class UserController {
                         message: error
                     })
                 } else {
-                    if (!Pass.checkPassword(req.body.password, res.password)) {
+                    if (!Pass.checkPassword(req.body.password, result.password)) {
                         res.status(404).json({
                             message: error
                         })
