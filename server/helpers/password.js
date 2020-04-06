@@ -1,14 +1,16 @@
 const bcrypt = require('bcrypt')
-const roundSalt = 10
+const saltRound = 10
 
 class Password {
 
     static hashPassword(pass) {
-        const salt = bcrypt.genSaltSync(roundSalt)
+        let salt = bcrypt.genSaltSync(saltRound)
+        console.log(bcrypt.hashSync(pass, salt), '=======> helper')
         return bcrypt.hashSync(pass, salt)
     }
 
     static checkPassword(loginPass, hashPass) {
+        console.log(bcrypt.compareSync(loginPass, hashPass), '=======> helper')
         return bcrypt.compareSync(loginPass, hashPass)
     }
 

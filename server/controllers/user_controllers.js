@@ -4,14 +4,12 @@ const jwt = require('jsonwebtoken')
 
 class UserController {
     static register(req, res) {
-        let data = {}
-        if (req.body) {
-            data.email = req.body.email
-            data.password = Pass.hashPassword(req.body.password)
-        } else {
-            data.email = 'yokai@mail.com'
-            data.password = Pass.hashPassword('12345')
+        console.log(req.body)
+        let data = {
+            email: req.body.email,
+            password: req.body.password
         }
+        console.log(data)
         User.create(data)
             .then(result => {
                 res.status(201).json(result)
@@ -37,6 +35,7 @@ class UserController {
                 }
             })
             .then(result => {
+                console.log(result)
                 let error = 'Email / Password salah'
 
                 if (!result) {
@@ -44,7 +43,7 @@ class UserController {
                         message: error
                     })
                 } else {
-                    if (result.password !== req.body.password) {
+                    if (!Pass.checkPassword(req.body.password, res.password)) {
                         res.status(404).json({
                             message: error
                         })
@@ -53,7 +52,7 @@ class UserController {
                             id: result.id
                         }
                         let token = jwt.sign(data, process.env.SECRET)
-                        res.status(200).json(token)
+                        res.status(200).json({ token })
                     }
                 }
             })
